@@ -4,6 +4,7 @@ import{app} from '../../firebaseInit'
 import {getAuth, signInWithEmailAndPassword} from 'firebase/auth'
 import { useNavigate } from 'react-router-dom'
 
+
 const Login = () => {
     const navi = useNavigate();
     const [loding,setLoding] = useState(false);
@@ -32,7 +33,14 @@ const onSubmit = (e) =>{
             alert("로그인 성공");
             setLoding(false);
             sessionStorage.setItem('email',email)
-            navi('/');
+            sessionStorage.setItem('uid',success.user.uid)
+
+            if(sessionStorage.getItem('target')){
+                navi(sessionStorage.getItem('target'));
+            }else{
+                navi('/');
+            }
+            navi('/books');
         })
         .catch(error => {
             alert("에러: " + error.message);
@@ -41,6 +49,7 @@ const onSubmit = (e) =>{
         })
     }
 }
+
 
 if(loding) return <h1 className='my-5'>로딩중입니다.....</h1>
   return (
