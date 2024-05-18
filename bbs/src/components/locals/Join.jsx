@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import {Row, Col, Form, InputGroup,Card,Button} from 'react-bootstrap'
 import{app} from '../../firebaseInit'
-import {getAuth, signInWithEmailAndPassword} from 'firebase/auth'
+import {createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword} from 'firebase/auth'
 import { useNavigate } from 'react-router-dom'
 
 
-const Login = () => {
+const Join = () => {
     const navi = useNavigate();
     const [loding,setLoding] = useState(false);
     const auth = getAuth(app);
@@ -26,21 +26,13 @@ const onSubmit = (e) =>{
     if(email === "" || pass === ""){
         alert("이메일과 비밀번호를 입력하세요")
     }else{
-        //로그인체크
+        //이메일 가입
         setLoding(true);
-        signInWithEmailAndPassword(auth,email,pass)
+        createUserWithEmailAndPassword(auth,email,pass)
         .then(success => {
-            alert("로그인 성공");
+            alert("이메일 가입성공");
             setLoding(false);
-            sessionStorage.setItem('email',email)
-            sessionStorage.setItem('uid',success.user.uid)
-
-            if(sessionStorage.getItem('target')){
-                navi(sessionStorage.getItem('target'));
-            }else{
-                navi('/');
-            }
-            navi('/books');
+           navi('/login');
         })
         .catch(error => {
             alert("에러: " + error.message);
@@ -57,7 +49,7 @@ if(loding) return <h1 className='my-5'>로딩중입니다.....</h1>
         <Col mb={6}>
             <Card>
                 <Card.Header>
-                    <h3 className='text-center'>로그인</h3>
+                    <h3 className='text-center'>회원가입</h3>
                 </Card.Header>
                 <Card.Body>
                     <form onSubmit={onSubmit}>
@@ -70,11 +62,8 @@ if(loding) return <h1 className='my-5'>로딩중입니다.....</h1>
                             <Form.Control name='pass' type='password' value={pass} onChange={onChange}/>
                         </InputGroup>
                         <div>
-                            <Button className='w-100' type='submit'> 로그인
+                            <Button className='w-100' type='submit'> 회원가입
                             </Button>
-                        </div>
-                        <div className='text-end'>
-                            <a href="/join">회원가입</a> 
                         </div>
                     </form>
                 </Card.Body>
@@ -84,4 +73,4 @@ if(loding) return <h1 className='my-5'>로딩중입니다.....</h1>
   )     
 }
 
-export default Login
+export default Join
