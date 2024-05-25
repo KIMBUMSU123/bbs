@@ -12,6 +12,7 @@ import Login from './User/Login';
 import Locals from './locals/Locals';
 import Favorite from './locals/Favorite';
 import Join from './locals/Join';
+import Myapage from './User/Myapage';
 
 const Menu = () => {
     const navi = useNavigate();
@@ -45,7 +46,7 @@ const Menu = () => {
                         </Nav>
                         {sessionStorage.getItem('email') ?
                             <Nav>
-                                <Nav.Link href="#">{sessionStorage.getItem('email')}</Nav.Link>
+                                <Nav.Link href="/mypage">{sessionStorage.getItem('email')}</Nav.Link>
                                 <Nav.Link href="#" onClick={onLogout}>로그아웃</Nav.Link>
                             </Nav>
                             :
@@ -65,6 +66,7 @@ const Menu = () => {
                 <Route path="/locals" element={<Locals />} />
                 <Route path="/favorite" element={<Favorite />} />
                 <Route path="/join" element={<Join />} />
+                <Route path="/mypage" element={<Myapage />} />
             </Routes>
         </>
 
