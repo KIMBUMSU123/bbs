@@ -13,6 +13,9 @@ import Locals from './locals/Locals';
 import Favorite from './locals/Favorite';
 import Join from './locals/Join';
 import Myapage from './User/Myapage';
+import ListPage from './bbs/ListPage'; 
+import ReadPage from './bbs/ReadPage';
+import InsertPage from './bbs/InsertPage';
 
 const Menu = () => {
     const navi = useNavigate();
@@ -43,6 +46,7 @@ const Menu = () => {
                                     <Nav.Link href="/favorite">즐겨찾기</Nav.Link>
                                 </>
                             }
+                             <Nav.Link href="/bbs/list">게시판</Nav.Link>
                         </Nav>
                         {sessionStorage.getItem('email') ?
                             <Nav>
@@ -67,6 +71,9 @@ const Menu = () => {
                 <Route path="/favorite" element={<Favorite />} />
                 <Route path="/join" element={<Join />} />
                 <Route path="/mypage" element={<Myapage />} />
+                <Route path="/bbs/list" element={<ListPage/>}/>
+                <Route path="/bbs/insert" element={<InsertPage/>}/>
+                <Route path="/bbs/read/:id" element={<ReadPage/>}/>
             </Routes>
         </>
 
