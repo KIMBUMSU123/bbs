@@ -26,15 +26,15 @@ const ListPage = () => {
                     no,
                     id:row.id,
                     ...row.data()
-                });
-            });
+                })
+            })
             // console.log(rows);
 
             const start = (page-1)*size + 1;
             const end = (page*size);
 
             let data = rows.map((row, index) => row && {seq:no-index, ...row});
-            data = rows.filter(row => row.no>=start && row.no<=end);
+            data = data.filter(row => row.no>=start && row.no<=end);
             setCount(no);
             setPosts(data);
         });
@@ -67,7 +67,7 @@ const ListPage = () => {
                     <tbody>
                         {posts.map(post=>
                             <tr key={post.id}>
-                                <td className='text=center'>{post.seq}</td>
+                                <td>{post.seq}</td>
                                 <td><a href={`/bbs/read/${post.id}`}>{post.title}</a></td>
                                 <td>{post.email}</td>
                                 <td>{post.date}</td>
